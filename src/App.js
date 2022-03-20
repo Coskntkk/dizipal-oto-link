@@ -28,11 +28,11 @@ function App() {
               window.location.href = `https://dizipal${siteLink}.com/dizi/gibi`;
             }, 2000);
           } else {
-            setLink(link+1);
+            setLink(parseInt(link)+1);
           }
         })
         .catch(function (error) {
-          setLink(link+1);
+          setLink(parseInt(link)+1);
         });
     }
   }, [link]);
