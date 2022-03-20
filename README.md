@@ -2,4 +2,4 @@
 
 Güncel Dizipal linkini bulur ve yönlendirir.
 
-[Dizipal Otomatik Link](https://coskntkk.github.io/dizipal-oto-link/)
+[Dizipal Otomatik Link](https://dizipal-oto-link.vercel.app)
