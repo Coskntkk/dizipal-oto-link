@@ -1,5 +1,5 @@
 # Dizipal Otomatik Link
 
-Güncel Dizipal linkini bulur ve yönlendirir.
+Güncel Dizipal linkini bulur ve Gibi dizi sayfasına yönlendirir.
 
-[Dizipal Otomatik Link](https://coskntkk.github.io/dizipal-oto-link/)
+[Dizipal Otomatik Link](https://dizipal-oto-link.vercel.app)
