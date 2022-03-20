@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const proxyurl = "https://api.allorigins.win/get?charset=ISO-8859-1&url=";
 
 function App() {
   const [message, setMessage] = useState('Link Bulunuyor...');
@@ -11,16 +11,11 @@ function App() {
       const config = {
         method: 'get',
         url: `${proxyurl}http://dizipal${link}.com`,
-        headers:  {
-          "Content-Type": "text/html; charset=utf-8",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-        }
       };
       axios(config)
         .then(function (response) {
-          const ind = response.data.indexOf("<a href=\"https://dizipal");
-          const siteLink = response.data.substring(ind + 24, ind + 27);
+          const ind = response.data.contents.indexOf("<a href=\"https://dizipal");
+          const siteLink = response.data.contents.substring(ind + 24, ind + 27);
           if (siteLink) {
             setMessage(`Link Bulundu: ${siteLink}. Yönlendiriliyor...`);
             localStorage.setItem('link', siteLink);
