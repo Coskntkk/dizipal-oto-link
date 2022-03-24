@@ -4,7 +4,7 @@ const proxyurl = "https://api.allorigins.win/get?charset=ISO-8859-1&url=";
 
 function App() {
   const [message, setMessage] = useState('Link Bulunuyor...');
-  const [link, setLink] = useState(localStorage.getItem('link') ? localStorage.getItem('link') : 200);
+  const [link, setLink] = useState(localStorage.getItem('link') ? localStorage.getItem('link') : 202);
 
   useEffect(() => {
     if (link) {
@@ -14,16 +14,20 @@ function App() {
       };
       axios(config)
         .then(function (response) {
-          const ind = response.data.contents.indexOf("<a href=\"https://dizipal");
-          const siteLink = response.data.contents.substring(ind + 24, ind + 27);
-          if (siteLink) {
-            setMessage(`Link Bulundu: ${siteLink}. Yönlendiriliyor...`);
-            localStorage.setItem('link', siteLink);
-            setTimeout(() => {
-              window.location.href = `https://dizipal${siteLink}.com/dizi/gibi`;
-            }, 2000);
-          } else {
+          let ind = response.data.contents.indexOf("dizipal");
+          if (ind === -1) {
             setLink(parseInt(link)+1);
+          } else {
+            const siteLink = response.data.contents.substring(ind + 7, ind + 10);
+            if (siteLink) {
+              setMessage(`Link Bulundu: ${siteLink}. Yönlendiriliyor...`);
+              localStorage.setItem('link', siteLink);
+              setTimeout(() => {
+                window.location.href = `https://dizipal${siteLink}.com`;
+              }, 2000);
+            } else {
+              setLink(parseInt(link)+1);
+            }
           }
         })
         .catch(function (error) {
