@@ -35,7 +35,9 @@ export default function Home() {
       } else {;
         console.log("buldum: ", result.link);
         localStorage.setItem("link", result.link);
-        window.location.href = `http://dizipal${result.link}.com`;
+        setTimeout(() => {
+          window.location.href = `http://dizipal${result.link}.com`;
+        }, 1500);
       }
     })
   }
