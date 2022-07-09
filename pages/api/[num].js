@@ -1,39 +1,17 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-const request = require('request');
+const request = require("request-promise");
+const cheerio = require("cheerio");
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   const { num } = req.query;
-  let options = {
-    'method': 'GET',
-    'url': `http://dizipal${num}.com`,
-    'headers': {}
-  };
-  request(options, function (error, response) {
-    try {
-      let body = response.body;
-      let finding = "https://dizipal";
-      let dizipalUrl = body.indexOf(finding);
-      let bakim = body.indexOf('<title>bakım</title>');
-      if (dizipalUrl > -1) {
-        // Link var
-
-        if (bakim > -1) {
-          // Bakımda
-          res.send({ success: false, link: null, status: 2 });
-
-        } else  {
-          let link = body.substring(dizipalUrl + finding.length, dizipalUrl + finding.length + 3);
-          // Site açık
-          res.send({ success: true, link: link, status: 1 });
-
-        }
-      } else {
-        res.send({ success: false, link: null, status: 0 });
-
-      }
-    } catch (e) {
-      res.send({ success: false, link: null, status: 0 });
-
-    }
-  });
+  try {
+    let html = await request.get(`https://dizipal${num}.com/`);
+    const $ = cheerio.load(html);
+    let urlTag = $("[property='og:url']");
+    let url = urlTag.attr().content;
+    let number = url.split("https://dizipal")[1].split(".")[0];
+    res.send({ success: true, link: number, status: 1 });
+  } catch (err) {
+    res.send({ success: false, link: null, status: 0 });
+  }
 }

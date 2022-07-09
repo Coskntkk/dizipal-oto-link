@@ -28,12 +28,10 @@ export default function Home() {
     axios.get(`/api/${link}`)
     .then((response) => {
       let result = response.data;
-      console.log(result);
       setStatus(result.status)
       if (!result.success) {
         setLink(parseInt(link)+1);
-      } else {;
-        console.log("buldum: ", result.link);
+      } else {
         localStorage.setItem("link", result.link);
         setTimeout(() => {
           window.location.href = `http://dizipal${result.link}.com`;
