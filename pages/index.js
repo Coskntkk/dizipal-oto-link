@@ -35,7 +35,7 @@ export default function Home() {
       } else {
         localStorage.setItem("link", result.link);
         setTimeout(() => {
-          // window.location.href = `http://dizipal${result.link}.com`;
+          window.location.href = `http://dizipal${result.link}.com`;
         }, 1500);
       }
     })
@@ -48,7 +48,9 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    findLink();
+    setTimeout(() => {
+      findLink();
+    }, 1000)
 
     return () => {}
   }, [link]);
