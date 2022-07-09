@@ -10,7 +10,7 @@ export default function Home() {
   2 => bakım
   3 => error */
   // Link:
-  const [link, setLink] = useState(251);
+  const [link, setLink] = useState(300);
 
   const getStoredLink = () => {
     if (localStorage) {
