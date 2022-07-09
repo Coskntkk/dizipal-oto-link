@@ -18,14 +18,15 @@ export default function Home() {
       let parsed = parseInt(storedLink);
       if (parsed)
         setLink(storedLink);
-    } else {
-      setLink(link);
+        setTimeout
     }
   }
 
-  const findLink = () => {
-    console.log("arıyorum: ", link)
-    axios.get(`/api/${link}`)
+  const findLink = async () => {
+    setTimeout(() => {
+      console.log("aranıyor: ", link)
+    }, 500)
+    await axios.get(`/api/${link}`)
     .then((response) => {
       let result = response.data;
       setStatus(result.status)
@@ -34,7 +35,7 @@ export default function Home() {
       } else {
         localStorage.setItem("link", result.link);
         setTimeout(() => {
-          window.location.href = `http://dizipal${result.link}.com`;
+          // window.location.href = `http://dizipal${result.link}.com`;
         }, 1500);
       }
     })
@@ -44,7 +45,7 @@ export default function Home() {
     getStoredLink();
 
     return () => {}
-  })
+  }, [])
 
   useEffect(() => {
     findLink();
